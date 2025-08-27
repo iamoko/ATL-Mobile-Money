@@ -5,7 +5,6 @@ import { errorHandler } from "./middleware/errors";
 import paymentRoutes from "./routes/payment.route";
 import { airtel_callback } from "./controller/payment.controller";
 import dotenv from "dotenv";
-import _ from "lodash";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"), // adjust if .env is elsewhere
@@ -14,6 +13,7 @@ dotenv.config({
 });
 
 const app = express();
+const port = process.env.PORT || 8000;
 
 app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ limit: "100kb", extended: true }));
@@ -37,7 +37,6 @@ app.use("*", (req: Request, res: Response) => {
 // Error handling
 app.use(errorHandler);
 
-const port = _.isUndefined(process.env.PORT) ? 9000 : 8000;
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running at http://0.0.0.0:${port}`);
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
