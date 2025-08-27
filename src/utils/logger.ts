@@ -9,12 +9,10 @@ import path from "path";
 export const logToFile = (fileName: string, data: any) => {
   try {
     // Ensure logs folder exists
-    const logsDir = path.join(__dirname, "logs");
+    const logsDir = path.resolve("/home/ubuntu/logs");
     if (!fs.existsSync(logsDir)) {
       fs.mkdirSync(logsDir, { recursive: true });
     }
-
-    console.log(logsDir);
 
     // Full file path
     const logFilePath = path.join(logsDir, fileName);
