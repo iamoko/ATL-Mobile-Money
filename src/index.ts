@@ -1,28 +1,22 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import path from "path";
-import bodyParser from "body-parser";
 import { errorHandler } from "./middleware/errors";
-
-import "dotenv/config";
-
 import paymentRoutes from "./routes/payment.route";
 import { airtel_callback } from "./controller/payment.controller";
+import dotenv from "dotenv";
 
-const setTZ = require("set-tz");
-setTZ("Africa/Khartoum");
-
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config({
+  path: path.resolve(__dirname, "../.env"), // adjust if .env is elsewhere
+  override: true, // overwrite existing env vars
+  quiet: true, // suppress dotenv logs
+});
 
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(bodyParser.urlencoded({ limit: "100kb", extended: true }));
-
-// Parse application/json
-app.use(bodyParser.json({ limit: "100kb" }));
-
-app.use(express.json());
+app.use(express.json({ limit: "100kb" }));
+app.use(express.urlencoded({ limit: "100kb", extended: true }));
 
 // const allowedOrigins = ["http://localhost:3000"];
 
