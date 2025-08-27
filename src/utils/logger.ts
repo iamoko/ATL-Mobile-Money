@@ -14,6 +14,8 @@ export const logToFile = (fileName: string, data: any) => {
       fs.mkdirSync(logsDir, { recursive: true });
     }
 
+    console.log(logsDir);
+
     // Full file path
     const logFilePath = path.join(logsDir, fileName);
 
